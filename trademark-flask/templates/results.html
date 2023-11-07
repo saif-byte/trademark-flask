@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results</title>
+</head>
+<body>
+    <h1>Results</h1>
+
+    {% if result %}
+        <h2>In the Country</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for column in result[0].columns %}
+                    <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result[0].itertuples(index=False) %}
+                <tr>
+                    {% for value in row %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Except the country</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for column in result[1].columns %}
+                    <th>{{ column }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result[1].itertuples(index=False) %}
+                <tr>
+                    {% for value in row %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+         <!-- Text box and button for sending email -->
+         <form action="/send_email" method="post">
+            <label for="email_body">Enter email body:</label><br>
+            <textarea id="email_body" name="email_body" rows="5" cols="40"></textarea><br>
+            <button type="submit">Send Email</button>
+        </form>
+        
+    {% else %}
+        <p>No result to display.</p>
+    {% endif %}
+
+</body>
+</html>
